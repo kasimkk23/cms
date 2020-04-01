@@ -1,4 +1,6 @@
 <?php include 'includes/admin_header.php'; ?>
+<?php include 'functions.php'; ?>
+<?php ob_start(); ?>
 
     <div id="wrapper">
 
@@ -20,25 +22,9 @@
                 </div>
                 <!-- /.row -->
                 <div class="col-md-6">
-                    <?php
-                    if(isset($_POST['submit'])){
-                       $cat_title = $_POST['cat_title'];
 
-                       if($cat_title == "" || empty($cat_title)){
-                        echo "This field must not be empty";
-                       } else {
-                        $query = "INSERT INTO categories(cat_title)";
-                        $query.= "VALUE('$cat_title')";
+                    <?php insert_categories(); ?>
 
-                        $create_category_query = mysqli_query($connection, $query);
-
-                        if(!$create_category_query){
-                            die('Query Failed'. mysqli_error($connection));
-                        }
-
-                       }
-                    } 
-                    ?>
                     <form action="" method="post">
                         <div class="form-group">
                             <input type="cat_title" class="form-control" name="cat_title" placeholder="Add Categories">
@@ -46,7 +32,7 @@
                           <button type="submit" name="submit" class="btn btn-primary">Add Categories</button>
                     </form>
 
-                    <?php 
+                    <?php  // updating categories and including
                     if (isset($_GET['edit'])) {
                         $cat_id = $_GET['edit'];
                         include 'includes/update_categories.php';
@@ -54,10 +40,6 @@
 
                     ?>
 
-
-
-
-                    
                 </div>
                 <div class="col-md-6">
                     <table class="table table-dark">
@@ -70,43 +52,12 @@
                       </thead>
                       <tbody>
                         <tr>
+
                         <?php // Find all the categories
-                        $query = "SELECT * FROM categories";
-                        $select_categories = mysqli_query($connection, $query);
+                        findAllCategories(); ?>
 
-                        $id = 0;
-                        while ($row = mysqli_fetch_assoc($select_categories)) {
-                            $cat_title = $row['cat_title'];
-                            $cat_id = $row['cat_id'];
-
-                            echo "<tr>";
-                            echo "<th scope='row'>" . $id++ . "</th>";
-                            echo "<td>{$cat_title}</td>";
-                            echo "<td><a href='categories.php?delete={$cat_id}'>Delete</a></td>";
-                            echo "<td><a href='categories.php?edit={$cat_id}'>Edit</a></td>";
-                            echo "</tr>"; 
-                        }
-                        ?>
                         <?php // Deleting category
-                        if(isset($_GET['delete'])){
-                            $the_cat_id = $_GET['delete'];
-                            $query = "DELETE FROM categories WHERE cat_id = {$the_cat_id}";
-                            $delete_query = mysqli_query($connection, $query);
-                            header('Location: categories.php');
-                        }
-                        ?>
-
-
-
-
-
-
-
-
-
-
-
-
+                        deleteCategories();  ?>
 
                         </tr>
                       </tbody>
