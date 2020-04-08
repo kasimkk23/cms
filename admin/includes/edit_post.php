@@ -46,7 +46,7 @@ if(isset($_GET['p_id'])){
   }
 
   $query = "UPDATE posts SET ";
-  $query.= "post_category_id ='{$post_category_id}', ";
+  $query.= "post_category_id ='{$post_category_id}' , ";
   $query.= "post_title ='{$post_title}', ";
   $query.= "post_author ='{$post_author}', ";
   $query.= "post_date = now(), ";
@@ -58,6 +58,10 @@ if(isset($_GET['p_id'])){
 
   $update_post = mysqli_query($connection, $query);
   confirmQuery($update_post);
+
+  echo "<div class='alert alert-success'>
+  <strong>Success!</strong> You have edited a post:  <a href='posts.php' class='alert-link'>View Posts</a>.
+</div>";
 
   }
 }
@@ -98,10 +102,26 @@ if(isset($_GET['p_id'])){
       <label for="post_author">Post Author</label>
       <input type="text" value="<?php echo $post_author; ?>" class="form-control" name="post_author">
     </div>
+    
     <div class="form-group">
-      <label for="post_status">Post Status</label>
-      <input type="text" value="<?php echo $post_status; ?>" class="form-control" name="post_status">
+      <label>Post Status </label>
+      <select name="post_status" class="custom-select my-1 mr-sm-2" id="post_status">
+        <option selected>Choose post status</option>
+        <option value="<?php echo $post_status; ?>"><?php echo $post_status; ?> </option>
+
+    <?php 
+    if ($post_status == 'published') {
+      echo "<option value='draft'>Draft</option>";
+    } else {
+      echo "<option value='published'>Publish</option>";
+    }
+    ?>
+
+    </select><br>
+
     </div>
+
+
     <div class="form-group">
       <label for="post_image">Post Image</label>
       <input type="file" class="form-control" name="image">

@@ -23,6 +23,9 @@ if(isset($_POST['create_post'])){
   $create_post_query = mysqli_query($connection, $query);
   
   confirmQuery($create_post_query);
+  echo "<div class='alert alert-success'>
+  <strong>Success!</strong> You have created a new post:  <a href='posts.php' class='alert-link'>View posts</a>.
+</div>";
 
 }
 
@@ -59,10 +62,12 @@ if(isset($_POST['create_post'])){
     <label for="post_author">Post Author</label>
     <input type="text" class="form-control" name="post_author">
   </div>
+
   <div class="form-group">
-    <label for="post_status">Post Status</label>
-    <input type="text" class="form-control" name="post_status">
-  </div>
+      <label for="post_status">Post Status</label>
+      <input type="text" class="form-control" name="post_status">
+    </div>
+
   <div class="form-group">
     <label for="post_image">Post Image</label>
     <input type="file" class="form-control" name="image">
@@ -71,9 +76,9 @@ if(isset($_POST['create_post'])){
     <label for="post_tags">Post Tags</label>
     <input type="text" class="form-control" name="post_tags">
   </div>
-  <div class="form-group">
+  <div class="form-group" >
     <label for="post_content">Post Content</label>
-    <textarea type="text" class="form-control" name="post_content" col='30' rows="10">
+    <textarea type="text" class="form-control" name="post_content" id="editor" col='50' rows="10">
     </textarea>
   </div>
 

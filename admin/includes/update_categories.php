@@ -20,6 +20,9 @@
         if (!$update_query) {
             die("Update Query Failed". mysqli_error($connection));
         } 
+        echo "<div class='alert alert-success'>
+          <strong>Success!</strong> You have updated a category:  <a href='./categories.php' class='alert-link'>View Categories</a>.
+        </div>";
     }
     ?>
     </div>

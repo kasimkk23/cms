@@ -51,6 +51,10 @@ if(isset($_POST['update_user'])){
     die("Query failed" . mysqli_error($connection));
   }
 
+  echo "<div class='alert alert-success'>
+  <strong>Success!</strong> You have edited a user:  <a href='users.php' class='alert-link'>View posts</a>.
+</div>";
+
 }
 
 ?>

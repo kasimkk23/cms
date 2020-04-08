@@ -22,7 +22,7 @@ if(isset($_POST['create_user'])){
   confirmQuery($create_user_query);
 
   echo "<div class='alert alert-success'>
-  <strong>Success!</strong> You have a created a new user:  <a href='users.php' class='alert-link'>View User</a>.
+  <strong>Success!</strong> You have created a new user:  <a href='users.php' class='alert-link'>View User</a>.
 </div>";
 
 }
