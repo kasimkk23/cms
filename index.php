@@ -23,9 +23,7 @@
                     $post_content = substr($row['post_content'], 0, 200);
                     $post_status = $row['post_status'];
 
-                    if(!$post_status == 'published' ){
-                        echo "<h1 clas='text-center'>NO Post Sorry! Come again!</h1>";
-                    } else {
+                    if($post_status == 'published' ) {
 
             ?>
             <h1 class="page-header">

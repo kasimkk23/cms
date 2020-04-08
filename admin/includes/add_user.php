@@ -21,10 +21,15 @@ if(isset($_POST['create_user'])){
   
   confirmQuery($create_user_query);
 
+  echo "<div class='alert alert-success'>
+  <strong>Success!</strong> You have a created a new user:  <a href='users.php' class='alert-link'>View User</a>.
+</div>";
+
 }
 
 ?>
-
+<div class="row">
+  <div class="col-md-8">
 <form action="" method="post" enctype="multipart/form-data">
   <div class="form-group">
     <label for="title">Username</label>
@@ -65,3 +70,6 @@ if(isset($_POST['create_user'])){
 
   <button type="submit" class="btn btn-primary" name="create_user">Add User</button>
 </form>
+</div>
+  
+</div>
