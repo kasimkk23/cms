@@ -37,9 +37,8 @@ if(isset($_POST['create_post'])){
     <input type="text" class="form-control" name="title">
   </div>
   <div class="form-group">
-      <label>Categories </label>
-      <select name="post_category" class="custom-select my-1 mr-sm-2" id="post_category">
-        <option selected>Choose one Category</option>
+    <label>Categories </label>
+    <select name="post_category" class="form-control custom-select my-1 mr-sm-2" id="post_category">   
 
     <?php 
         $query = "SELECT * FROM categories";

@@ -60,26 +60,25 @@ if(isset($_GET['p_id'])){
   confirmQuery($update_post);
 
   echo "<div class='alert alert-success'>
-  <strong>Success!</strong> You have edited a post:  <a href='posts.php' class='alert-link'>View Posts</a>.
+  <strong>Success!</strong> You have edited a post:  <a href='../post.php?p_id={$the_post_id}' class='alert-link'>View Post</a>. <small>All other posts : </small><a href='post.php' class='alert-link'>View all posts</a>.
 </div>";
+
 
   }
 }
 ?>
 
 
-
-<h3>Edit this post</h3>
 <form action="" method="post" enctype="multipart/form-data">
   <div class="col-md-8">
     <div class="form-group">
       <label for="title">Post Title</label>
       <input type="text" value="<?php echo $post_title; ?>" class="form-control" name="title">
     </div>
+
     <div class="form-group">
-      <label>Categories </label>
-      <select name="post_category" class="custom-select my-1 mr-sm-2" id="post_category">
-        <option selected>Choose one Category</option>
+    <label>Categories </label>
+    <select name="post_category" class="form-control custom-select my-1 mr-sm-2" id="post_category">        
 
     <?php 
         $query = "SELECT * FROM categories";
@@ -95,19 +94,20 @@ if(isset($_GET['p_id'])){
         }
     ?>
 
-    </select><br>
+    </select>
 
     </div>
     <div class="form-group">
       <label for="post_author">Post Author</label>
       <input type="text" value="<?php echo $post_author; ?>" class="form-control" name="post_author">
     </div>
+
     
     <div class="form-group">
-      <label>Post Status </label>
-      <select name="post_status" class="custom-select my-1 mr-sm-2" id="post_status">
-        <option selected>Choose post status</option>
-        <option value="<?php echo $post_status; ?>"><?php echo $post_status; ?> </option>
+    <label>Post Status </label>
+    <select name="post_status" class="form-control custom-select my-1 mr-sm-2" id="post_status">
+      
+    <option value="<?php echo $post_status; ?>"><?php echo $post_status; ?> </option>
 
     <?php 
     if ($post_status == 'published') {
@@ -117,7 +117,7 @@ if(isset($_GET['p_id'])){
     }
     ?>
 
-    </select><br>
+    </select>
 
     </div>
 

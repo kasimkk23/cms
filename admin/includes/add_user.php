@@ -45,13 +45,14 @@ if(isset($_POST['create_user'])){
   </div>
 
   <div class="form-group">
-      <label>User Role  </label>
-      <select name="user_role" class="custom-select my-1 mr-sm-2" id="post_category">
+    <label>User Role</label>
+    <select name="user_role" class="form-control custom-select my-1 mr-sm-2" id="user_role"> 
         <option value="subscriber">Select option</option>
         <option value="admin">Admin</option>
         <option value="subscriber">Subscriber</option>
-    </select><br>
+    </select>
   </div>
+    
 
 
   <div class="form-group">
