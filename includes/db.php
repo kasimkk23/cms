@@ -13,6 +13,6 @@ foreach ($db as $key => $value) {
 
 // connect to database with message
 $connection = mysqli_connect(DB_HOST, DB_USER, DB_PASSWORD, DB_NAME);
-if ($connection) {
-    echo "We are connected";
+if (!$connection) {
+    echo "Connection failed";
 }
