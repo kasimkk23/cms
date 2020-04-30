@@ -1,8 +1,10 @@
 <?php include 'includes/admin_header.php'; ?>
 <?php include 'functions.php'; ?>
+
 <?php ob_start(); ?>
 
-    <div id="wrapper">
+
+<div id="wrapper">
 
         <!-- Navigation -->
 <?php include 'includes/admin_navigation.php'; ?>
@@ -21,7 +23,7 @@
                     </div>
                 </div>
                 <!-- /.row -->
-                <div class="col-md-6">
+                <div class="col-md-4">
 
                     <?php insert_categories(); ?>
 
@@ -41,7 +43,7 @@
                     ?>
 
                 </div>
-                <div class="col-md-6">
+                <div class="col-md-8">
                     <table class="table table-dark">
                       <thead>
                         <tr>

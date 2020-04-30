@@ -49,7 +49,7 @@ if (isset($_POST['checkBoxArray'])) {
   </div>
   <div class="col-xs-4">
     <input type="submit" name="submit" class="btn btn-success" name="checkBoxArray" value="Apply">
-    <a href="add_posts.php" class="btn btn-primary">Add New</a>
+    <a href="posts.php?source=add_post" class="btn btn-primary">Add New</a>
   </div><br><br>
 
       <thead>
@@ -64,6 +64,7 @@ if (isset($_POST['checkBoxArray'])) {
           <th scope="col">Tags</th>
           <th scope="col">Comments</th>
           <th scope="col">Date</th>
+          <th scope="col">View</th>
           <th scope="col" colspan="2">Actions</th>
         </tr>
       </thead>
@@ -73,7 +74,7 @@ if (isset($_POST['checkBoxArray'])) {
         $query = "SELECT * FROM posts";
         $select_posts = mysqli_query($connection, $query);
 
-        $id = 0;
+        $id = 1;
         while ($row = mysqli_fetch_assoc($select_posts)) {
             $post_id = $row['post_id'];
             $post_author = $row['post_author'];
@@ -105,12 +106,15 @@ if (isset($_POST['checkBoxArray'])) {
             
             echo "<td>{$cat_title}</td>";
             }
+            $date=date_create($post_date);
+            $post_date = date_format($date,"Y/m/d");
 
             echo "<td>{$post_status}</td>";
             echo "<td><img style='width:60px;' class='img-responsive img-fluid img-thumbnail' src='../images/$post_image'></td>";
             echo "<td>{$post_tags}</td>";
             echo "<td>{$post_comment_count}</td>";
             echo "<td>{$post_date}</td>";
+            echo "<td><a href='../post.php?p_id={$post_id}'>View Post</a></td>";
             echo "<td><a href='posts.php?source=edit_post&p_id={$post_id}'>Edit</a></td>";
             echo "<td><a href='posts.php?delete={$post_id}'>Delete</a></td>";
 

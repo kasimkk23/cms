@@ -1,7 +1,5 @@
 <?php 
 
-
-
 if (isset($_GET['edit_user'])) {
     $the_user_id = $_GET['edit_user'];
 
@@ -20,8 +18,6 @@ if (isset($_GET['edit_user'])) {
       }
 }
 
-
-
 if(isset($_POST['update_user'])){
 
   $user_firstname = $_POST['user_firstname'];
@@ -37,9 +33,23 @@ if(isset($_POST['update_user'])){
   
   // move_uploaded_file($post_image_temp, "../images/$post_image");
 
+
+  $query = "SELECT randSalt FROM users";
+  $select_randsalt_query = mysqli_query($connection, $query);
+
+  if(!$select_randsalt_query){
+      die("QUERY FAILED. ". mysql_error($connection));
+  }
+
+  $row = mysqli_fetch_array($select_randsalt_query);
+  $salt = $row['randSalt'];
+  $hashed_password = crypt($user_password, $salt);
+
+
+
   $query = "UPDATE users SET ";
   $query.= "username ='{$username}', ";
-  $query.= "user_password ='{$user_password}', ";
+  $query.= "user_password ='{$hashed_password}', ";
   $query.= "user_firstname ='{$user_firstname}', ";
   $query.= "user_lastname ='{$user_lastname}', ";
   $query.= "user_email ='{$user_email}', ";

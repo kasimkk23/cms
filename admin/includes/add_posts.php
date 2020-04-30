@@ -38,8 +38,8 @@ if(isset($_POST['create_post'])){
   </div>
   <div class="form-group">
     <label>Categories </label>
-    <select name="post_category" class="form-control custom-select my-1 mr-sm-2" id="post_category">   
-
+    <select name="post_category" class="form-control custom-select my-1 mr-sm-2" id="post_category"> 
+      <option value="">Select Category</option>
     <?php 
         $query = "SELECT * FROM categories";
         $select_categories = mysqli_query($connection, $query);
@@ -64,7 +64,11 @@ if(isset($_POST['create_post'])){
 
   <div class="form-group">
       <label for="post_status">Post Status</label>
-      <input type="text" class="form-control" name="post_status">
+      <select class="form-control custom-select my-1 mr-sm-2" name="post_status" id="">
+        <option value="">Select status</option>
+        <option value="publish">Publish</option>
+        <option value="draft">Draft</option>
+      </select>
     </div>
 
   <div class="form-group">

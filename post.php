@@ -60,10 +60,11 @@
                 $comment_email = $_POST['comment_email'];
                 $comment_content = $_POST['comment_content'];
 
-                $query = "INSERT INTO comments(comment_post_id, comment_author, comment_email, comment_content, comment_status, comment_date)";
+                if(!empty($comment_author) && !empty($comment_email) && !empty($comment_content)){
+
+                    $query = "INSERT INTO comments(comment_post_id, comment_author, comment_email, comment_content, comment_status, comment_date)";
 
                 $query .= "VALUES($the_post_id, '{$comment_author}', '{$comment_email}', '{$comment_content}', 'Unapprove', now() ) ";
-             } 
 
              $create_comment_query = mysqli_query($connection, $query);
              if(!$create_comment_query){
@@ -77,15 +78,26 @@
             if(!$count_comment_query){
                 die("Query failed" . mysqli_error($connection));
             }
+            $success = "Your comment is pending for approval";
+
+                } else {
+                    $error = "Comment fields must not empty";
+                } 
+            } 
 
             ?>
 
-
-
-
                 <!-- Comments Form -->
                 <div class="well">
-                    <h4>Leave a Comment:</h4>
+                    <?php if(!empty($error)){?>
+                        <div class="alert alert-danger">
+                        <strong><?php echo $error; ?> </strong></div> 
+                     <?php } ?>
+                     <?php if(!empty($success)){?>
+                        <div class="alert alert-success">
+                        <strong><?php echo $success; ?> </strong></div> 
+                     <?php } ?>
+                     <h4>Leave a Comment:</h4>
                     <form role="form" action="" method="post">
                         <div class="form-group">
                             <input type="text" class="form-control" name="comment_author" placeholder="Your Name"></input>
@@ -127,7 +139,8 @@
                         <h4 class="media-heading"><?php echo $comment_author ?> 
                             <small><?php echo $comment_date ?></small>
                         </h4>
-                        <?php echo $comment_content; ?>
+
+                        <?php echo substr($comment_content, 0, 100); ?>
                     </div>
                 </div>
 
