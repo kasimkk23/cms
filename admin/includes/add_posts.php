@@ -22,7 +22,13 @@ if(isset($_POST['create_post'])){
 
   $create_post_query = mysqli_query($connection, $query);
   
-  confirmQuery($create_post_query);
+  if(!$create_post_query){
+    die("Query failed " . mysqli_error($connection));
+  }
+
+
+
+
   echo "<div class='alert alert-success'>
   <strong>Success!</strong> You have created a new post:  <a href='posts.php' class='alert-link'>View posts</a>.
 </div>";
@@ -43,7 +49,10 @@ if(isset($_POST['create_post'])){
     <?php 
         $query = "SELECT * FROM categories";
         $select_categories = mysqli_query($connection, $query);
-        confirmQuery($select_categories);
+
+        if(!$select_categories){
+          die("Query failed " . mysqli_error($connection));
+        }
 
         while ($row = mysqli_fetch_assoc($select_categories)) {
             $cat_title = $row['cat_title'];
@@ -66,7 +75,7 @@ if(isset($_POST['create_post'])){
       <label for="post_status">Post Status</label>
       <select class="form-control custom-select my-1 mr-sm-2" name="post_status" id="">
         <option value="">Select status</option>
-        <option value="publish">Publish</option>
+        <option value="published">Published</option>
         <option value="draft">Draft</option>
       </select>
     </div>

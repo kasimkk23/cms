@@ -1,5 +1,4 @@
 <?php include 'includes/admin_header.php'; ?>
-<?php include 'functions.php'; ?>
 <?php ob_start(); ?>
 
     <div id="wrapper">
