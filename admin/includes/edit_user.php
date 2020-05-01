@@ -86,7 +86,7 @@ if(isset($_POST['update_user'])){
   <div class="form-group">
       <label>User Role  </label>
       <select name="user_role" class="custom-select my-1 mr-sm-2" id="user_role">
-        <option value="subscriber"><?php echo $user_role; ?></option>
+        <option value="<?php echo $user_role; ?>"><?php echo $user_role; ?></option>
 
         <?php
         if($user_role == 'admin'){
