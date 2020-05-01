@@ -1,11 +1,39 @@
 <?php 
 
 function confirmQuery($result){
+
     global $connection;
     
     if(!$result){
     die("Query failed " . mysqli_error($connection));
   }
+}
+
+// check how many users are online
+function users_online(){
+
+    global $connection;
+
+    $session = session_id();
+    $user_time = time();
+    $time_out_in_seconds = 30;
+    $time_out = $user_time - $time_out_in_seconds;
+
+    $query = "SELECT * from users_online WHERE session = '$session'";
+    $send_query = mysqli_query($connection, $query);
+    $count = mysqli_num_rows($send_query);
+
+    if($count == NULL){
+        mysqli_query($connection, "INSERT INTO users_online(session, user_time) VALUES('$session','$user_time')");
+    } else {
+        mysqli_query($connection,"UPDATE users_online SET user_time = '$user_time' WHERE session = '$session' ");
+    }
+
+    $users_online_query = "SELECT * FROM users_online WHERE user_time > $time_out ";
+    $count_query = mysqli_query($connection, $users_online_query);
+
+    return $count_user = mysqli_num_rows($count_query);
+
 }
 
 function insert_categories(){
