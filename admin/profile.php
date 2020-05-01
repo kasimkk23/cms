@@ -18,7 +18,6 @@ if(isset($_SESSION['username'])){
         $user_lastname = $row['user_lastname'];
         $user_email = $row['user_email'];
         $user_image = $row['user_image'];
-        $user_role = $row['user_role'];
     }
     
 }
@@ -30,7 +29,6 @@ if(isset($_POST['update_user'])){
 
   echo $user_firstname = $_POST['user_firstname'];
   $user_lastname = $_POST['user_lastname'];
-  $user_role = $_POST['user_role'];
 
   // $post_image = $_FILES['image']['name'];
   // $post_image_temp = $_FILES['image']['tmp_name'];
@@ -47,7 +45,6 @@ if(isset($_POST['update_user'])){
   $query.= "user_firstname ='{$user_firstname}', ";
   $query.= "user_lastname ='{$user_lastname}', ";
   $query.= "user_email ='{$user_email}', ";
-  $query.= "user_role ='{$user_role}' ";
   $query.= "WHERE username = '{$username}' ";
 
   $update_user = mysqli_query($connection, $query);
@@ -89,20 +86,6 @@ if(isset($_POST['update_user'])){
                         <input type="text" value="<?php echo $user_lastname; ?>" class="form-control" name="user_lastname">
                       </div>
 
-                      <div class="form-group">
-                          <label>User Role  </label>
-                          <select name="user_role" class="custom-select my-1 mr-sm-2" id="user_role">
-                            <option value="subscriber"><?php echo $user_role; ?></option>
-
-                            <?php
-                            if($user_role == 'admin'){
-                            echo "<option value='subscriber'>subscriber</option>";
-                            } else {
-                            echo "<option value='admin'>admin</option>";
-                            }
-                            ?>
-                        </select><br>
-                      </div> 
 
 
                       <div class="form-group">
@@ -111,7 +94,7 @@ if(isset($_POST['update_user'])){
                       </div>
                       <div class="form-group">
                         <label for="">Password</label>
-                        <input type="password" value="<?php echo $user_password; ?>" class="form-control" name="user_password">
+                        <input type="password" autocomplete="off" class="form-control" name="user_password">
                       </div>
                       <!-- <div class="form-group">
                         <label for="post_image">Post Image</label>

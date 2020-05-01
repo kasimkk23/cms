@@ -14,7 +14,6 @@ if (isset($_GET['edit_user'])) {
           $user_lastname = $row['user_lastname'];
           $user_email = $row['user_email'];
           $user_image = $row['user_image'];
-          $user_role = $row['user_role'];
       }
 }
 
@@ -22,7 +21,6 @@ if(isset($_POST['update_user'])){
 
   $user_firstname = $_POST['user_firstname'];
   $user_lastname = $_POST['user_lastname'];
-  $user_role = $_POST['user_role'];
 
   // $post_image = $_FILES['image']['name'];
   // $post_image_temp = $_FILES['image']['tmp_name'];
@@ -33,27 +31,26 @@ if(isset($_POST['update_user'])){
   
   // move_uploaded_file($post_image_temp, "../images/$post_image");
 
+  if(!empty($user_password)){
+     $query_password = "SELECT user_password FROM users WHERE user_id = $the_user_id";
+     $get_user_password = mysqli_query($connection, $query_password);
+     if(!$get_user_password){
+      die("Query FAILED . ". mysqli_error($connection));
+     }
 
-  // $query = "SELECT randSalt FROM users";
-  // $select_randsalt_query = mysqli_query($connection, $query);
+     $row = mysqli_fetch_array($get_user_password);
+     $db_user_password = $row['user_password'];
 
-  // if(!$select_randsalt_query){
-  //     die("QUERY FAILED. ". mysqli_error($connection));
-  // }
+     if($db_user_password != $user_password){
+    $hashed_password = password_hash($user_password, PASSWORD_BCRYPT, array('cost'=> 10));
 
-  // $row = mysqli_fetch_array($select_randsalt_query);
-  // $salt = $row['randSalt'];
-  // $hashed_password = crypt($user_password, $salt);
-
-   $hashed_password = password_hash($user_password, PASSWORD_BCRYPT, array('cost'=> 12));
-
+  }
   $query = "UPDATE users SET ";
   $query.= "username ='{$username}', ";
   $query.= "user_password ='{$hashed_password}', ";
   $query.= "user_firstname ='{$user_firstname}', ";
   $query.= "user_lastname ='{$user_lastname}', ";
   $query.= "user_email ='{$user_email}', ";
-  $query.= "user_role ='{$user_role}' ";
   $query.= "WHERE user_id = {$the_user_id} ";
 
   $update_user = mysqli_query($connection, $query);
@@ -64,6 +61,12 @@ if(isset($_POST['update_user'])){
   echo "<div class='alert alert-success'>
   <strong>Success!</strong> You have edited a user:  <a href='users.php' class='alert-link'>View posts</a>.
 </div>";
+  }
+
+  
+
+
+  
 
 }
 
@@ -83,20 +86,20 @@ if(isset($_POST['update_user'])){
     <input type="text" value="<?php echo $user_lastname; ?>" class="form-control" name="user_lastname">
   </div>
 
-  <div class="form-group">
+  <!-- <div class="form-group">
       <label>User Role  </label>
       <select name="user_role" class="custom-select my-1 mr-sm-2" id="user_role">
-        <option value="<?php echo $user_role; ?>"><?php echo $user_role; ?></option>
+        <option value="<?php //echo $user_role; ?>"><?php //echo $user_role; ?></option>
 
         <?php
-        if($user_role == 'admin'){
-        echo "<option value='subscriber'>subscriber</option>";
-        } else {
-        echo "<option value='admin'>admin</option>";
-        }
+        //if($user_role == 'admin'){
+        //echo "<option value='subscriber'>subscriber</option>";
+        //} //else {
+        //echo "<option value='admin'>admin</option>";
+        //}
         ?>
     </select><br>
-  </div>
+  </div> -->
 
 
   <div class="form-group">
@@ -105,7 +108,7 @@ if(isset($_POST['update_user'])){
   </div>
   <div class="form-group">
     <label for="">Password</label>
-    <input type="password" value="<?php echo $user_password; ?>" class="form-control" name="user_password">
+    <input type="password" autocomplete="off" class="form-control" name="user_password">
   </div>
   <!-- <div class="form-group">
     <label for="post_image">Post Image</label>
