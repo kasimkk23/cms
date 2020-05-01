@@ -13,7 +13,35 @@
                 <h1 class="page-header">CMS - Articles</h1>
 
             <?php
-                $query = "SELECT * FROM posts";
+
+            if(isset($_GET['page'])){
+                $page = $_GET['page'];
+            } else {
+                $page = "";
+            }
+
+            if($page == "" || $page == 1){
+                $page_1 = 0;
+            } else {
+                $page_1 = ($page * 5) - 5;
+            }
+
+
+
+
+
+
+            // number of rows in the database || Pagination System
+            $post_query_count = "SELECT * FROM posts";
+            $find_count = mysqli_query($connection, $post_query_count);
+            $count = ceil(mysqli_num_rows($find_count)/5);
+
+
+
+
+
+
+                $query = "SELECT * FROM posts LIMIT $page_1, 5";
                 $select_all_posts = mysqli_query($connection, $query); 
                 while ($row = mysqli_fetch_assoc($select_all_posts)) {
                     $post_id = $row['post_id'];
@@ -31,6 +59,7 @@
                 
 
                 <!-- First Blog Post -->
+                <h1><?php echo $count; ?></h1>
                 <h2>
                     <a href="post.php?p_id=<?php echo $post_id; ?>"><?php echo $post_title; ?></a>
                 </h2>
@@ -56,12 +85,25 @@
 
             <!-- Blog Sidebar Widgets Column -->
             <?php  include "includes/sidebar.php" ?>
-            
-
         </div>
         <!-- /.row -->
-
         <hr>
+
+        <nav aria-label="Page navigation example">
+          <ul class="pagination">
+
+            <?php
+            for ($i=1; $i <= $count; $i++) { 
+                // active tap
+                if($i == $page){
+                echo "<li class='page-item active'><a class='page-link' href='index.php?page={$i}''>{$i}</a></li>";    
+                } else {
+                    echo "<li class='page-item'><a class='page-link' href='index.php?page={$i}''>{$i}</a></li>";
+                }
+            }
+            ?>
+          </ul>
+        </nav>
 
         <!-- Footer -->
         <?php  include "includes/footer.php" ?>
