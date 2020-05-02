@@ -32,14 +32,15 @@
 
 
             // number of rows in the database || Pagination System
-            $post_query_count = "SELECT * FROM posts";
+            $post_query_count = "SELECT * FROM posts WHERE post_status = 'published' ";
             $find_count = mysqli_query($connection, $post_query_count);
             $count = ceil(mysqli_num_rows($find_count)/5);
 
-
-
-
-
+            if($count < 1){
+                echo "<div class='alert alert-warning' role='alert'>
+                        Currently, there is no post.
+                    </div>";
+            } else {
 
                 $query = "SELECT * FROM posts LIMIT $page_1, 5";
                 $select_all_posts = mysqli_query($connection, $query); 
@@ -52,7 +53,6 @@
                     $post_content = substr($row['post_content'], 0, 200);
                     $post_status = $row['post_status'];
 
-                    if($post_status == 'published' ) {
 
             ?>
             
@@ -77,7 +77,7 @@
 
                 <hr>
 
-            <?php }  } ?>
+            <?php  } } ?>
 
                 
             </div>
